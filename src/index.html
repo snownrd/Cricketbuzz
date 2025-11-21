@@ -1,0 +1,176 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICC Men's Cricket Rankings 2025</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>ICC Men's Cricket Rankings</h1>
+        
+        <!-- Main Tabs -->
+        <div class="main-tabs">
+            <button class="active" onclick="showCategory('batting')">Batting</button>
+            <button onclick="showCategory('bowling')">Bowling</button>
+            <button onclick="showCategory('teams')">Teams</button>
+        </div>
+        <div class="format-tabs">
+            <button class="active" onclick="showFormat('test')">TEST</button>
+            <button onclick="showFormat('odi')">ODI</button>
+            <button onclick="showFormat('t20')">T20</button>
+        </div>
+
+        <!-- Rankings Table -->
+        <table id="rankings-table">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Player/Team</th>
+                    <th>Country</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody id="rankings-body">
+                <!-- Dynamic rows will be inserted here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const data = {
+            batting: {
+                test: [
+                    { rank: 1, name: "Rohit Sharma", country: "India", points: 1300 },
+                    { rank: 2, name: "Virat Kohali", country: "India", points: 1270 },
+                    { rank: 3, name: "Hardik Pandya", country: "India", points: 1160 },
+                    { rank: 4, name: "Shreyas Iyer", country: "India", points: 1050 },
+                    { rank: 5, name: "Joe Root", country: "England", points: 908 },
+                    { rank: 6, name: "Harry Brook", country: "England", points: 868 },
+                    { rank: 7, name: "Kane Williamson", country: "New Zealand", points: 850 },
+                    { rank: 8, name: "Steven Smith", country: "Australia", points: 816 }
+                ],
+                odi: 
+                [
+                    { rank: 1, name: "Rohit Sharma", country: "India", points: 900 },
+                    { rank: 2, name: "Virat Kohali", country: "India", points: 880 },
+                    { rank: 3, name: "Babar Azam", country: "Pakistan", points: 860 },
+                    { rank: 4, name: "Faf du Plessis", country: "South Africa", points: 840 },
+                    { rank: 5, name: "David Warner", country: "Australia", points: 820 },
+                    { rank: 6, name: "Martin Guptill", country: "New Zealand", points: 800 },
+                    { rank: 7, name: "Jonny Bairstow", country: "England", points: 780 },
+                    { rank: 8, name: "Shai Hope", country: "West Indies", points: 760 }
+                    
+                ],
+                t20: [
+                    { rank: 1, name: "Rohit Sharma", country: "India", points: 920 },
+                    { rank: 2, name: "Virat Kohali", country: "India", points: 880 },
+                    { rank: 3, name: "Suryakumar Yadav", country: "India", points: 860 },
+                    { rank: 4, name: "Devon Conway", country: "New Zealand", points: 840 },
+                    { rank: 5, name: "Mohammad Rizwan", country: "Pakistan", points: 830 },
+                    { rank: 6, name: "KL Rahul", country: "India", points: 810 },
+                    { rank: 7, name: "Glenn Maxwell", country: "Australia", points: 790 },
+                    { rank: 8, name: "Dinesh Chandimal", country: "Sri Lanka", points: 770 }
+                ]
+            },
+            bowling: { 
+                test: [
+                    { rank: 1, name: "Jasprit Bumrah", country: "India", points: 880 },
+                    { rank: 2, name: "Pat Cummins", country: "Australia", points: 900 },
+                    { rank: 3, name: "Kagiso Rabada", country: "South Africa", points: 860 },
+                    { rank: 4, name: "Trent Boult", country: "New Zealand", points: 840 },
+                    { rank: 5, name: "Shaheen Afridi", country: "Pakistan", points: 820 },
+                    { rank: 6, name: "James Anderson", country: "England", points: 800 },
+                    { rank: 7, name: "Rashid Khan", country: "Afghanistan", points: 780 },
+                    { rank: 8, name: "Nathan Lyon", country: "Australia", points: 760 }
+                ], 
+                odi: [
+                    { rank: 1, name: "Trent Boult", country: "New Zealand", points: 850 },
+                    { rank: 2, name: "Jasprit Bumrah", country: "India", points: 830 },
+                    { rank: 3, name: "Kagiso Rabada", country: "South Africa", points: 810 },
+                    { rank: 4, name: "Shaheen Afridi", country: "Pakistan", points: 790 },
+                    { rank: 5, name: "Mitchell Starc", country: "Australia", points: 770 },
+                    { rank: 6, name: "Lockie Ferguson", country: "New Zealand", points: 750 },
+                    { rank: 7, name: "Mustafizur Rahman", country: "Bangladesh", points: 730 },
+                    { rank: 8, name: "Adil Rashid", country: "England", points: 710 }
+                ], 
+                t20: [
+                    { rank: 1, name: "Rashid Khan", country: "Afghanistan", points: 900 },
+                    { rank: 2, name: "Jasprit Bumrah", country: "India", points: 880 },
+                    { rank: 3, name: "Tabraiz Shamsi", country: "South Africa", points: 860 },
+                    { rank: 4, name: "Wanindu Hasaranga", country: "Sri Lanka", points: 840 },
+                    { rank: 5, name: "Adil Rashid", country: "England", points: 820 },
+                    { rank: 6, name: "Kagiso Rabada", country: "South Africa", points: 800 },
+                    { rank: 7, name: "Mohammad Nabi", country: "Afghanistan", points: 780 },
+                    { rank: 8, name: "Yuzvendra Chahal", country: "India", points: 760 }
+                ] },
+            teams: { 
+                test: [
+                    { rank: 1, name: "India", country: "India", points: 130 },
+                    { rank: 2, name: "Australia", country: "Australia", points: 120 },
+                    { rank: 3, name: "England", country: "England", points: 115 },
+                    { rank: 4, name: "New Zealand", country: "New Zealand", points: 110 },
+                    { rank: 5, name: "South Africa", country: "South Africa", points: 105 },
+                    { rank: 6, name: "Pakistan", country: "Pakistan", points: 100 },
+                    { rank: 7, name: "Sri Lanka", country: "Sri Lanka", points: 95 },
+                    { rank: 8, name: "Bangladesh", country: "Bangladesh", points: 90 }
+                ], 
+                odi: [
+                    { rank: 1, name: "India", country: "India", points: 125 },
+                    { rank: 2, name: "England", country: "England", points: 120 },
+                    { rank: 3, name: "New Zealand", country: "New Zealand", points: 115 },
+                    { rank: 4, name: "Pakistan", country: "Pakistan", points: 110 },
+                    { rank: 5, name: "Australia", country: "Australia", points: 105 },
+                    { rank: 6, name: "South Africa", country: "South Africa", points: 100 },
+                    { rank: 7, name: "Sri Lanka", country: "Sri Lanka", points: 95 },
+                    { rank: 8, name: "Bangladesh", country: "Bangladesh", points: 90 }
+                ], 
+                t20: [
+                    { rank: 1, name: "India", country: "India", points: 130 },
+                    { rank: 2, name: "Pakistan", country: "Pakistan", points: 125 },
+                    { rank: 3, name: "England", country: "England", points: 120 },
+                    { rank: 4, name: "New Zealand", country: "New Zealand", points: 115 },
+                    { rank: 5, name: "Australia", country: "Australia", points: 110 },
+                    { rank: 6, name: "South Africa", country: "South Africa", points: 105 },
+                    { rank: 7, name: "Sri Lanka", country: "Sri Lanka", points: 100 },
+                    { rank: 8, name: "Bangladesh", country: "Bangladesh", points: 95 }
+                ] }
+        };
+
+        let currentCategory = 'batting';
+        let currentFormat = 'test';
+
+        function renderTable() {
+            const tbody = document.getElementById('rankings-body');
+            tbody.innerHTML = '';
+            data[currentCategory][currentFormat].forEach(item => {
+                const row = `<tr>
+                    <td>${item.rank}</td>
+                    <td>${item.name}</td>
+                    <td>${item.country}</td>
+                    <td>${item.points}</td>
+                </tr>`;
+                tbody.innerHTML += row;
+            });
+        }
+
+        function showCategory(category) {
+            currentCategory = category;
+            document.querySelectorAll('.main-tabs button').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderTable();
+        }
+
+        function showFormat(format) {
+            currentFormat = format;
+            document.querySelectorAll('.format-tabs button').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderTable();
+        }
+
+        renderTable();
+    </script>
+</body>
+</html>
