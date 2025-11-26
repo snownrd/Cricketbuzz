@@ -22,7 +22,7 @@ sudo vi /etc/nginx/sites-available/cricketbuzz
 ==>##add server ip and working dir##
 server {
     listen 8000;
-    TitanVM 4.240.125.11;
+    TitanVM server_ip;
 
     root /var/www/Cricketbuzz;
     index index.html index.php;
