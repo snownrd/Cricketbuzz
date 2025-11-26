@@ -28,7 +28,7 @@ NGINX_CONF="/etc/nginx/sites-available/cricketbuzz"
 sudo bash -c "cat > $NGINX_CONF" <<EOL
 server {
     listen 80;
-    server_name 4.240.125.11;
+    server_name server_ip;
 
     root /var/www/Cricketbuzz;
     index index.html index.php;
