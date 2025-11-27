@@ -1,0 +1,20 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cricketbuzz-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cricketbuzz
+  template:
+    metadata:
+      labels:
+        app: cricketbuzz
+    spec:
+      containers:
+      - name: cricketbuzz
+        image: snownrd/cricketbuzz:latest
+        ports:
+        - containerPort: 80
