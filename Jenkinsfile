@@ -14,8 +14,7 @@ pipeline {
                     echo "Backing up current code..."
                     TIMESTAMP=$(date +%F_%H_%M_%S)
                     sudo mkdir -p ${BACKUP_PATH}/$TIMESTAMP
-                    sudo tar -czf "${BACKUP_PATH}/${TIMESTAMP}.tar.gz" -C "${DEPLOY_PATH}" .
-                    echo "Backup created: ${BACKUP_PATH}/${TIMESTAMP}.tar.gz"
+                    sudo cp -r ${DEPLOY_PATH}/* ${BACKUP_PATH}/$TIMESTAMP/
                     '''
                 }
             }
