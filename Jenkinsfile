@@ -12,7 +12,7 @@ pipeline {
                 script {
                     sh '''
                     echo "Backing up current code..."
-                    TIMESTAMP=$(date +%F_%H_%M_%S)
+                    TIMESTAMP=$(date +%Y_%m_%d_%H_%M_%S)
                     sudo mkdir -p ${BACKUP_PATH}/$TIMESTAMP
                     sudo cp -r ${DEPLOY_PATH}/* ${BACKUP_PATH}/$TIMESTAMP/
                     '''
