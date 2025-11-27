@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t $DOCKER_IMAGE:$DOCKER_TAG .'
+                sh 'docker build -t $DOCKER_IMAGE:$DOCKER_TAG -f do_not_delete/Dockerfile .'
             }
         }
         stage('Push to Docker Hub') {
@@ -28,8 +28,8 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 sh '''
-                kubectl apply -f k8s-deployment.yaml
-                kubectl apply -f k8s-service.yaml
+                kubectl apply -f do_not_delete/k8s-deployment.yaml
+                kubectl apply -f do_not_delete/k8s-service.yaml
                 '''
             }
         }
