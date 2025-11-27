@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
 
@@ -10,12 +11,12 @@ pipeline {
         stage('Backup Current Code') {
             steps {
                 script {
-                    sh """
+                    sh '''
                     echo "Backing up current code..."
                     TIMESTAMP=$(date +%F-%H-%M-%S)
                     sudo mkdir -p ${BACKUP_PATH}/$TIMESTAMP
                     sudo cp -r ${DEPLOY_PATH}/* ${BACKUP_PATH}/$TIMESTAMP/
-                    """
+                    '''
                 }
             }
         }
@@ -29,11 +30,11 @@ pipeline {
         stage('Deploy to /var/www/Cricketbuzz') {
             steps {
                 script {
-                    sh """
+                    sh '''
                     echo "Deploying latest code..."
                     sudo rm -rf ${DEPLOY_PATH}/*
                     sudo cp -r * ${DEPLOY_PATH}/
-                    """
+                    '''
                 }
             }
         }
@@ -41,10 +42,10 @@ pipeline {
         stage('Restart Nginx') {
             steps {
                 script {
-                    sh """
+                    sh '''
                     echo "Restarting Nginx..."
                     sudo systemctl restart nginx
-                    """
+                    '''
                 }
             }
         }
