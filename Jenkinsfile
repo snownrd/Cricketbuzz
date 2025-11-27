@@ -23,7 +23,7 @@ pipeline {
 
         stage('Fetch Latest Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/snownrd/Cricketbuzz.git'
+                git branch: 'master', url: 'https://github.com/snownrd/Cricketbuzz.git'
             }
         }
 
