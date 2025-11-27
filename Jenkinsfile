@@ -2,33 +2,23 @@
 pipeline {
     agent any
     
-environment {
-    DEPLOY_PATH = "/var/www/Cricketbuzz"
-    BACKUP_PATH = "/var/www/Cricketbuzz_backup"
-}
-
-stages {
-    stage('Backup Current Code') {
-        steps {
-            script {
-                sh '''
-                set -e
-
-                echo "Backing up current code to tarball..."
-                TIMESTAMP=$(date +%Y_%m_%d_%H_%M_%S)
-
-                # Ensure backup directory exists
-                sudo mkdir -p "${BACKUP_PATH}"
-
-                # Create tar.gz of current deployed files
-                # -C switches directory to DEPLOY_PATH so the archive has clean relative paths
-                sudo tar -czf "${BACKUP_PATH}/${TIMESTAMP}.tar.gz" -C "${DEPLOY_PATH}" .
-
-                echo "Backup created: ${BACKUP_PATH}/${TIMESTAMP}.tar.gz"
-                '''
+    environment {
+        DEPLOY_PATH = "/var/www/Cricketbuzz"
+        BACKUP_PATH = "/var/www/Cricketbuzz_backup"
+    }
+    stages {
+        stage('Backup Current Code') {
+            steps {
+                script {
+                    sh '''
+                    echo "Backing up current code..."
+                    TIMESTAMP=$(date +%F_%H_%M_%S)
+                    sudo mkdir -p ${BACKUP_PATH}/$TIMESTAMP
+                    sudo cp -r ${DEPLOY_PATH}/* ${BACKUP_PATH}/$TIMESTAMP/
+                    '''
+                }
             }
         }
-    }
         stage('Fetch Latest Code') {
             steps {
                 git branch: 'master', url: 'https://github.com/snownrd/Cricketbuzz.git'
