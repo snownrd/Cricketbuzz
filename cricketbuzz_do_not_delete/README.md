@@ -28,7 +28,6 @@ server {
     index index.html index.php;
 }
 
-
 Enable site:-
 sudo ln -s /etc/nginx/sites-available/cricketbuzz /etc/nginx/sites-enabled/
 sudo nginx -t
